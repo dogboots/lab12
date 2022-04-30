@@ -33,7 +33,13 @@ public class FamilyTree
         {
         	if(parent == null)
         	{
-        			
+        		return;
+        	}
+        	else
+        	{
+        		childNode.parent = this;
+        		parent.children.add(childNode);
+        		
         	}
             // Add childNode to this node's children list. Also
             // set childNode's parent to this node.
@@ -46,7 +52,7 @@ public class FamilyTree
         TreeNode getNodeWithName(String targetName)
         {
             // Does this node have the target name?
-            if (toString().equals(targetName))
+            if (parent.toString().equals(targetName))
                 return this;
                     
             // No, recurse. Check all children of this node.
@@ -71,7 +77,14 @@ public class FamilyTree
         ArrayList<TreeNode> collectAncestorsToList()
         {
             ArrayList<TreeNode> ancestors = new ArrayList<>();
-
+            while(parent != null)
+            {
+            	ancestors.add(parent);
+            	parent = parent.parent;
+            	
+            }
+           
+           
             // ?????  Collect ancestors of this TreeNode into the array list. HINT: going up
             // the nodes of a tree is like traversing a linked list. If that isn’t clear,
             // draw a tree, mark any leaf node, and then mark its ancestors in order from
@@ -97,8 +110,8 @@ public class FamilyTree
         }
     }
 
-	private TreeNode			root;
-	
+	private TreeNode root;
+
 	
 	//
 	// Displays a file browser so that user can select the family tree file.
